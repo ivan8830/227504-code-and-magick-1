@@ -7,45 +7,30 @@ var TEXT_WIDTH = 25;
 var BAR_WIDTH = 40;
 var barHeight = -150;
 
-var getMaxElement = function (arr) {
-  var maxElement = arr[0];
-  for (var i = 1; i < arr.length; i++) {
-    if (arr[i] > maxElement) {
-      maxElement = arr[i];
-    }
-  } 
-  return maxElement;
+var getMaxElement = function(arr) {
+  return Math.max.apply(null, arr);
+}
+
+var renderCloud = function (ctx, color, gap) {
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(100 + gap, 135 + gap);
+  ctx.bezierCurveTo(100 + gap, 135 + gap, 100 + gap, 105 + gap, 125 + gap, 95 + gap);
+  ctx.bezierCurveTo(125 + gap, 95 + gap, 125 + gap, 5 + gap, 165 + gap, 55 + gap);
+  ctx.bezierCurveTo(165 + gap, 55 + gap, 187 + gap, 15 + gap, 300 + gap, 15 + gap);
+  ctx.bezierCurveTo(300 + gap, 15 + gap, 375 + gap, 15 + gap, 450 + gap, 55 + gap);
+  ctx.bezierCurveTo(450 + gap, 55 + gap, 475 + gap, 25 + gap, 500 + gap, 95 + gap);
+  ctx.bezierCurveTo(500 + gap, 95 + gap, 530 + gap, 125 + gap, 510 + gap, 280 + gap);
+  ctx.lineTo(110 + gap, 280 + gap);
+  ctx.bezierCurveTo(110 + gap, 280 + gap, 105 + gap, 205 + gap, 100 + gap, 135 + gap);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.fill();
 };
 
 window.renderStatistics = function (ctx, names, times) {
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-  ctx.beginPath();
-  ctx.moveTo(110, 145);
-  ctx.bezierCurveTo(110, 145, 110, 115, 135, 105);
-  ctx.bezierCurveTo(135, 105, 135, 15, 175, 65);
-  ctx.bezierCurveTo(175, 65, 197, 25, 310, 25);
-  ctx.bezierCurveTo(310, 25, 385, 25, 460, 65);
-  ctx.bezierCurveTo(460, 65, 485, 35, 510, 105);
-  ctx.bezierCurveTo(510, 105, 540, 135, 520, 290);
-  ctx.lineTo(120, 290);
-  ctx.bezierCurveTo(120, 290, 115, 215, 110, 145);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.fill();
-  ctx.fillStyle = '#fff';
-  ctx.beginPath();
-  ctx.moveTo(100, 135);
-  ctx.bezierCurveTo(100, 135, 100, 105, 125, 95);
-  ctx.bezierCurveTo(125, 95, 125, 5, 165, 55);
-  ctx.bezierCurveTo(165, 55, 187, 15, 300, 15);
-  ctx.bezierCurveTo(300, 15, 375, 15, 450, 55);
-  ctx.bezierCurveTo(450, 55, 475, 25, 500, 95);
-  ctx.bezierCurveTo(500, 95, 530, 125, 510, 280);
-  ctx.lineTo(110, 280);
-  ctx.bezierCurveTo(110, 280, 105, 205, 100, 135);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.fill();
+  renderCloud(ctx, 'rgba(0, 0, 0, 0.3)', 10);
+  renderCloud(ctx, '#fff', 0);
 
   ctx.font = '16px PT Mono';
   ctx.fillStyle = '#000';
@@ -53,7 +38,6 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Список результатов:', 215, 60);
 
   var maxTime = getMaxElement(times);
-
   for (var i = 0; i < names.length; i++) {
     ctx.fillStyle = names[i] === 'Вы' ? 'rgba(255, 0, 0, 1)' : 'rgba(0, 0, 255, ' + Math.random() + ')';
     ctx.fillRect(CLOUD_X + GAP + FONT_GAP + (GAP + BAR_WIDTH) * i, CLOUD_HEIGHT - FONT_GAP - TEXT_WIDTH, BAR_WIDTH, (barHeight * times[i]) / maxTime);
