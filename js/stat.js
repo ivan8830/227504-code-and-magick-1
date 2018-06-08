@@ -7,9 +7,9 @@ var TEXT_WIDTH = 25;
 var BAR_WIDTH = 40;
 var barHeight = -150;
 
-var getMaxElement = function(arr) {
+var getMaxElement = function (arr) {
   return Math.max.apply(null, arr);
-}
+};
 
 var renderCloud = function (ctx, color, gap) {
   ctx.fillStyle = color;
