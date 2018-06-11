@@ -43,7 +43,7 @@ var getRandomValue = function (arr) {
   return Math.floor(Math.random() * arr.length);
 };
 
-var generateArrayWizard = function (size, generator) {
+var generateArray = function (size, generator) {
   var cards = [];
 
   for (var i = 0; i < size; i++) {
@@ -85,5 +85,5 @@ var renderCards = function (arr) {
 };
 
 
-var wizard = generateArrayWizard(4, generateData);
+var wizard = generateArray(4, generateData);
 renderCards(wizard);
