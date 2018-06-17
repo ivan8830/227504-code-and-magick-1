@@ -22,7 +22,7 @@ var surnameWizard = [
   'Ирвинг',
 ];
 
-var coatColor = [
+var coatColors = [
   'rgb(101, 137, 164)',
   'rgb(241, 43, 107)',
   'rgb(146, 100, 161)',
@@ -31,7 +31,7 @@ var coatColor = [
   'rgb(0, 0, 0)'
 ];
 
-var eyesColor = [
+var eyesColors = [
   'black',
   'red',
   'blue',
@@ -39,7 +39,7 @@ var eyesColor = [
   'green'
 ];
 
-var fireballColor = [
+var fireballColors = [
   '#ee4830',
   '#30a8ee',
   '#5ce6c0',
@@ -64,8 +64,8 @@ var generateArray = function (size, generator) {
 var generateData = function () {
   return {
     name: nameWizard[getRandomValue(nameWizard)] + ' ' + surnameWizard[getRandomValue(surnameWizard)],
-    coatColor: coatColor[getRandomValue(coatColor)],
-    eyesColor: eyesColor[getRandomValue(eyesColor)]
+    coatColor: coatColors[getRandomValue(coatColors)],
+    eyesColor: eyesColors[getRandomValue(eyesColors)]
   };
 };
 
@@ -156,23 +156,17 @@ var fireBallSetupWrap = document.querySelector('.setup-fireball-wrap');
 var setupFireball = fireBallSetupWrap.querySelector('.setup-fireball');
 var fireballInput = fireBallSetupWrap.querySelector('input');
 
-wizardCoat.addEventListener('click', function () {
-  var randomCoat = coatColor[getRandomValue(coatColor)];
-  wizardCoat.style.fill = randomCoat;
-  wizardCoatInput.value = randomCoat;
-});
+var eventListner = function addClickChanger(el, inputEl, variants, attrib) {
+  el.addEventListener('click', function () {
+    var value = variants[getRandomValue(variants)];
+    el.style[attrib] = value;
+    inputEl.value = value;
+  });
+};
 
-wizardEyes.addEventListener('click', function () {
-  var randomEyes = eyesColor[getRandomValue(coatColor)];
-  wizardEyes.style.fill = randomEyes;
-  wizardEyesInput.value = randomEyes;
-});
-
-fireBallSetupWrap.addEventListener('click', function () {
-  var randomFireball = fireballColor[getRandomValue(fireballColor)];
-  setupFireball.style.backgroundColor = randomFireball;
-  fireballInput.value = randomFireball;
-});
+eventListner(wizardCoat, wizardCoatInput, coatColors, 'fill');
+eventListner(wizardEyes, wizardEyesInput, eyesColors, 'fill');
+eventListner(setupFireball, fireballInput, fireballColors, 'backgroundColor');
 
 var wizard = generateArray(4, generateData);
 renderCards(wizard);
