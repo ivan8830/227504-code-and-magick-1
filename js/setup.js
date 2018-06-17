@@ -170,7 +170,7 @@ wizardEyes.addEventListener('click', function () {
 
 fireBallSetupWrap.addEventListener('click', function () {
   var randomFireball = fireballColor[getRandomValue(fireballColor)];
-  setupFireball.style.fill = randomFireball;
+  setupFireball.style.backgroundColor = randomFireball;
   fireballInput.value = randomFireball;
 });
 
